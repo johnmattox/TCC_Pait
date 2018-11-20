@@ -1,5 +1,8 @@
 import os
 
+import warnings
+warnings.filterwarnings("ignore")
+
 import numpy as np
 from skimage.io import imread
 from scipy.misc import imresize
@@ -20,6 +23,12 @@ train_masks = [imresize(imread(os.path.join('imgs\\teste',x+'_mask.jpg'))[:,:,0]
 
 test_images = [imresize(imread(os.path.join('imgs\\teste',x+'_8.jpg')),proporcao_resize,interp='bicubic',mode='L') for x in test_pt]
 test_masks = [imresize(imread(os.path.join('imgs\\teste',x+'_mask.jpg'))[:,:,0],proporcao_resize,interp='bicubic',mode='L') for x in test_pt]
+
+# Adiciona uma dimensão nas imagens (necessidade do Keras)
+train_images = np.array([np.expand_dims(x,axis=2) for x in train_images])
+train_masks = np.array([np.expand_dims(x,axis=2) for x in train_masks])
+test_images = np.array([np.expand_dims(x,axis=2) for x in  test_images])
+test_masks = np.array([np.expand_dims(x,axis=2) for x in test_masks])
 
 test_train_files = os.path.join('test_train_files')
 if not os.path.exists(test_train_files):
