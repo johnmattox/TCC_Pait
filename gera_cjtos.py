@@ -13,15 +13,15 @@ raws_pt = [x for x in os.listdir(os.path.join('imgs/teste')) if '_8' in x]
 masks_pt = [x for x in os.listdir(os.path.join('imgs/teste')) if 'mask' in x]
 train_pt, test_pt = train_test_split([x.replace('_8.jpg','') for x in os.listdir(os.path.join('imgs/teste')) if '_8' in x], test_size=0.1)
 
-proporcao = 0.8
+proporcao = 1.15
 file_name = 'img_00000'
 image = imread(os.path.join('imgs/teste', file_name + '_8' + '.jpg'), as_gray=True)
 proporcao_resize = ((int(np.floor(proporcao*image.shape[0])//16)*16),(int(np.floor(proporcao*image.shape[1])//16)*16))
 
-train_images = [imresize(imread(os.path.join('imgs\\teste',x+'_8.jpg')),proporcao_resize,interp='bicubic',mode='L') for x in train_pt]
+train_images = [imresize(imread(os.path.join('imgs\\teste',x+'_8.jpg'))[:,:,0],proporcao_resize,interp='bicubic',mode='L') for x in train_pt]
 train_masks = [imresize(imread(os.path.join('imgs\\teste',x+'_mask.jpg'))[:,:,0],proporcao_resize,interp='bicubic',mode='L') for x in train_pt]
 
-test_images = [imresize(imread(os.path.join('imgs\\teste',x+'_8.jpg')),proporcao_resize,interp='bicubic',mode='L') for x in test_pt]
+test_images = [imresize(imread(os.path.join('imgs\\teste',x+'_8.jpg'))[:,:,0],proporcao_resize,interp='bicubic',mode='L') for x in test_pt]
 test_masks = [imresize(imread(os.path.join('imgs\\teste',x+'_mask.jpg'))[:,:,0],proporcao_resize,interp='bicubic',mode='L') for x in test_pt]
 
 # Adiciona uma dimensão nas imagens (necessidade do Keras)

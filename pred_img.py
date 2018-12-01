@@ -23,6 +23,7 @@ imagens = [x for x in os.listdir(os.path.join('imgs/real'))]
 output_path = os.path.join('imgs/real')
 
 proporcao = 0.65
+#proporcao = 0.50
 image = np.array(Image.open(os.path.join('imgs/real', imagens[0])).convert('L'))
 proporcao_resize = ((int(np.floor(proporcao*image.shape[0])//16)*16),(int(np.floor(proporcao*image.shape[1])//16)*16))
 
@@ -126,5 +127,5 @@ print("Converting results")
 pil_results = [ImageOps.invert(Image.fromarray(imresize(x[:,:,0],(image.shape[0],image.shape[1]),interp='bicubic',mode='L'))) for x in results]
 print("Saving results")
 for img in range(len(pil_results)):
-    pil_results[img].save(output_path+'/'+imagens[img]+'_treated.jpg',"JPEG")
+    pil_results[img].save(output_path+'/'+imagens[img].strip('.jpg')+'_treated.jpg',"JPEG")
     print('\r%3.2f%% concluído'%((img+1)*100/tot),end='')
