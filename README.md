@@ -4,5 +4,5 @@ Repositório para versionamento de códigos relativos
 ao TCC orientado pelo prof. Pait em 2018.
 
 #### Alunos:
-* César Mendes Tersariolli
+* César Augusto Mendes Tersariolli
 * John Mendes Mattox
